@@ -1,0 +1,41 @@
+<html>
+
+<head>
+	<link href="https://unpkg.com/bootstrap-vue@2.18.1/dist/bootstrap-vue.css" rel="stylesheet"/>
+  <link href="https://unpkg.com/bootstrap@4.5.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      padding: 1rem;
+    }
+  </style>
+	<title>IMDB Revolutionary</title>
+</head>
+
+<body>
+  <div id="app">
+    <b-input-group style="margin-bottom: 1em">
+      <b-form-input v-model="title" placeholder="Title"></b-form-input>
+      <b-input-group-append>
+        <b-button @click="search" variant="info">Search</b-button>
+      </b-input-group-append>
+      <b-form-radio-group id="btn-radios-2" v-model="mode" :options="options" buttons button-variant="outline-primary"
+        name="radio-btn-outline" style="margin-left: 1em;"></b-form-radio-group>
+    </b-input-group>
+    <b-table v-if="mode === 'table'" striped hover :items="movies" :fields="fields" show-empty>
+      <template v-slot:empty="scope">
+        {{ errorMessage }}
+      </template>
+    </b-table>
+    <b-container v-if="mode === 'cards'" fluid>
+      <b-row>
+        <b-card v-for="movie in movies" :title="movie.Title" :img-src="movie.poster" img-alt="Image" img-top
+          tag="article" style="width: 14rem; margin-right: 8px" class="mb-2">
+          <b-card-text>
+            {{movie.Year}}&nbsp;&bull;&nbsp;{{movie.Type}}
+          </b-card-text>
+        </b-card>
+      </b-row>
+    </b-container>
+  </div>
+</body>
+</html>
